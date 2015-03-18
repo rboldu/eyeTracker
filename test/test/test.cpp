@@ -271,7 +271,6 @@ int _tmain(int argc, _TCHAR* argv[])
 			old_y=y;
 			sprintf(aux,"%0.1f,%0.1f",x,y);
             iSendResult = send( ClientSocket, aux, strlen(aux), 0 );
-            //printf("Bytes sent: %d\n", iSendResult);
 	
 		}else{
 			counter++;
