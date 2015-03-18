@@ -28,7 +28,7 @@
 #define DEFAULT_BUFLEN 512
 #define DEFAULT_PORT "27015"
 #define FREFRESH 10 //ms
-#define MAXNOSEND 5000 // 5sec
+#define MAXNOSEND 2000 // 5sec
 #include <eyex\EyeX.h>
 
 #pragma comment (lib, "Tobii.EyeX.Client.lib")
@@ -254,6 +254,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	char order;
 	int counter=0;
 	while(1){
+		printf("Waiting for a new connection\n");
+		iSendResult=10;
 	    ClientSocket = accept(ListenSocket, NULL, NULL);
 	 if (ClientSocket == INVALID_SOCKET) {
         printf("accept failed with error: %d\n", WSAGetLastError());
@@ -278,7 +280,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			// until error
 			if (counter>MAXNOSEND/FREFRESH){
 				sprintf(aux,"%0.1f,%0.1f",x,y);
-				iSendResult = send( ClientSocket, aux, strlen(aux), 0 );
+				iSendResult = send(ClientSocket, aux, strlen(aux), 0 );
 				printf("-------Sending same info-------\n", iSendResult);
 				counter=0;
 			}
